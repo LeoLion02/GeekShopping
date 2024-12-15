@@ -1,0 +1,43 @@
+﻿@using GeekShopping.Web.Utils;
+@using System.Globalization;
+@model IEnumerable<ProductModel>
+
+<div class="container">
+    <div class="d-flex mt-5 justify-content-between align-items-baseline">
+        <h2 style="color: rgb(0, 98, 194);">Product List</h2>
+        <a asp-action="Form" class="btn btn-primary">Add Product</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mt-2 table-striped" style="text-align: center; vertical-align: middle;">
+            <thead style="background-color: rgb(0, 98, 194);">
+                <tr style="color: white">
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.CategoryName</td>
+                        <td>@product.Price.ToString("C", CultureInfo.GetCultureInfo("en-us"))</td>
+                        <td>
+                            <a asp-action="Form" asp-route-id="@product.Id" class="btn btn-info">
+                                <i class="fa-solid fa-pencil"></i>
+                            </a>
+                            @if (User.IsInRole(Role.ADMIN))
+                            {
+                                <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

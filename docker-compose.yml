@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  geekshopping.productapi:
+    image: ${DOCKER_REGISTRY-}geekshoppingproductapi
+    build:
+      context: .
+      dockerfile: GeekShopping.ProductAPI/Dockerfile
+    ports:
+      - "5002:80"
+    networks:
+      - geek-shopping
+
+  geekshopping.identity:
+    image: ${DOCKER_REGISTRY-}geekshoppingidentity
+    build:
+      context: .
+      dockerfile: GeekShopping.Identity/Dockerfile
+    ports:
+      - "5001:80"
+    networks:
+      - geek-shopping
+
+  geekshopping.web:
+    image: ${DOCKER_REGISTRY-}geekshoppingweb
+    build:
+      context: .
+      dockerfile: GeekShopping.Web/Dockerfile
+    ports:
+      - "5000:80"
+    networks:
+      - geek-shopping
+
+networks:
+    geek-shopping: 
+       driver: bridge
