@@ -12,8 +12,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-
 Log.Logger = new LoggerConfiguration()
     .Enrich.WithExceptionDetails()
     .WriteTo.Console()
@@ -50,8 +48,6 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApiScope", policy => policy.RequireClaim("scope", "geek_shopping")));
 
 var app = builder.Build();
-
-app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
